@@ -72,6 +72,32 @@ function App() {
             frameRate: 10,
             repeat: -1
         })
+
+        this.stars = this.physics.add.group({
+            key: 'star',
+            repeat: 11,
+            setXY: { x: 12, y: 0, stepX: 70 }
+        })
+
+        this.stars.children.iterate(function (child) {
+            child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8))
+        })
+
+        function collectStar(player, star) {
+            star.disableBody(true, true)
+        }
+
+        this.physics.add.collider(this.stars, this.platforms)
+        this.physics.add.overlap(
+            this.player,
+            this.stars,
+            collectStar,
+            null,
+            this
+        )
+
+        let score = 0
+        let scoreText
     }
 
     function update() {
