@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import Phaser from 'phaser'
+import { IonPhaser } from '@ion-phaser/react'
+
+import { useState } from 'react'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    const [initialize, setInitialize] = useState(true)
+
+    const [game, setGame] = useState({
+        type: Phaser.AUTO,
+        width: 800,
+        height: 600,
+        physics: { default: 'arcade', arcade: { gravity: { y: 1000 } } },
+        scene: { preload, create, update }
+    })
+
+    function preload() {}
+    function create() {}
+    function update() {}
+
+    return (
+        <div
+            className='App'
+            style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center'
+            }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+            <IonPhaser game={game} initialize={initialize} />
+        </div>
+    )
 }
 
-export default App;
+export default App
